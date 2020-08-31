@@ -11,22 +11,37 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+import environ
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 
+ROOT_DIR = (
+    environ.Path(__file__) - 1
+)
+env = environ.Env()
+
+# 依據環境變數來決定是否讀取 .env
+READ_DOT_ENV_FILE = env.bool("DJANGO_READ_DOT_ENV_FILE", default=False)
+if READ_DOT_ENV_FILE:
+    # OS environment variables take precedence over variables from .env
+    env.read_env(str(ROOT_DIR.path(".env")))
+
+DEBUG = env.bool("DJANGO_DEBUG", False)
+SECRET_KEY = env('DJANGO_SECRET_KEY')
+DATABASES = {"default": env.db("DATABASE_URL")}
+#CACHES = {
+    #'default': env.cache(),
+    # read os.environ['REDIS_URL']
+    #'redis': env.cache('REDIS_URL')
+#}
+EMAIL_CONFIG = env.email_url(
+    'EMAIL_URL', default='smtp://user:password@localhost:25')
+ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=["example.com"])
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '022)5&#(p52uavq#9=_2udda$ita8rqael=n&(*a945rc@cu3f'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
-
 
 # Application definition
 
