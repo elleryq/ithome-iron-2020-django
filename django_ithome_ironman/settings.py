@@ -28,7 +28,7 @@ if READ_DOT_ENV_FILE:
     # OS environment variables take precedence over variables from .env
     env.read_env(str(ROOT_DIR.path(".env")))
 
-DEBUG = env.bool("DJANGO_DEBUG", False)
+DEBUG = env.bool("DJANGO_DEBUG", True)
 SECRET_KEY = env('DJANGO_SECRET_KEY')
 DATABASES = {"default": env.db("DATABASE_URL")}
 #CACHES = {
@@ -38,7 +38,10 @@ DATABASES = {"default": env.db("DATABASE_URL")}
 #}
 EMAIL_CONFIG = env.email_url(
     'EMAIL_URL', default='smtp://user:password@localhost:25')
-ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=["example.com"])
+ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=[
+    "localhost",
+    "example.com"
+])
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
