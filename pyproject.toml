@@ -11,6 +11,7 @@ django-environ = "^0.4.5"
 djangorestframework = "^3.11.1"
 asgiref = "^3.2.10"
 django-extensions = "^3.0.5"
+django_extensions = "^3.0.7"
 
 [tool.poetry.dev-dependencies]
 
