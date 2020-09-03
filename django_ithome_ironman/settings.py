@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import environ
+import datetime
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -144,8 +145,16 @@ REST_FRAMEWORK = {
     "PAGE_SIZE": 100,
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
     "DEFAULT_AUTHENTICATION_CLASSES": (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
         "rest_framework.authentication.SessionAuthentication",
         "rest_framework.authentication.TokenAuthentication",
     ),
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
+}
+
+JWT_AUTH = {
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(
+        seconds=env.int("JWT_EXPIRATION_DELTA_SECONDS", default=60*60*24)),
+    'JWT_ALLOW_REFRESH': True,
+    # 'JWT_AUTH_HEADER_PREFIX': 'JWT',
 }

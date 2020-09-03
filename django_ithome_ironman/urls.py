@@ -15,6 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework_jwt.views import (
+    obtain_jwt_token,
+    refresh_jwt_token,
+    verify_jwt_token
+)
+from news import views
 
 
 urlpatterns = [
@@ -23,4 +29,9 @@ urlpatterns = [
 urlpatterns += [
     # API base url
     path("api/news/", include("news.urls")),
+    path("api/example/", views.ExampleView.as_view()),
+
+    path('api/token-auth/', obtain_jwt_token),
+    path('api/token-refresh/', refresh_jwt_token),
+    path('api/token-verify/', verify_jwt_token),
 ]
