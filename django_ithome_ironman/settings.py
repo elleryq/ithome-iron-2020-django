@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_extensions',
     'rest_framework',
+    'graphene_django',
     'news',
 ]
 
@@ -157,4 +158,8 @@ JWT_AUTH = {
         seconds=env.int("JWT_EXPIRATION_DELTA_SECONDS", default=60*60*24)),
     'JWT_ALLOW_REFRESH': True,
     # 'JWT_AUTH_HEADER_PREFIX': 'JWT',
+}
+
+GRAPHENE = {
+    'SCHEMA': 'news.schema.schema',
 }

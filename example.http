@@ -1,0 +1,52 @@
+POST http://localhost:8000/api/token-auth/
+content-type: application/json
+
+{
+    "username": "admin",
+    "password": "<your_password>"
+}
+
+###
+
+POST http://localhost:8000/graphql/
+content-type: application/json
+
+{
+    "query": "{ reporters {name} articles {id title reporter {name}}}"
+} 
+
+###
+
+POST http://localhost:8000/graphql/
+content-type: application/json
+
+{
+    "query": "mutation createReporter { createReporter(input: { name: \"Tom Hanks\" }) { ok reporter { id name } } }"
+}
+
+###
+
+POST http://localhost:8000/graphql/
+content-type: application/json
+
+{
+    "query": "mutation createArticle { createArticle(input: { title: \"The Terminal\", reporter:{id: 2} }) { ok article { id title reporter {id name}} } }"
+}
+
+### 帶 reporter
+
+POST http://localhost:8000/graphql/
+content-type: application/json
+
+{
+    "query": "mutation updateArticle { updateArticle(id: 1, input: { title: \"The Terminal 2\", reporter:{id:1} }) { ok article { id title reporter {id name}} } }"
+}
+
+### 不帶 reporter
+
+POST http://localhost:8000/graphql/
+content-type: application/json
+
+{
+    "query": "mutation updateArticle { updateArticle(id: 1, input: { title: \"The Terminal 3\" }) { ok article { id title reporter {id name}} } }"
+}

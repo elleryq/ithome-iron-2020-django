@@ -15,11 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.views.decorators.csrf import csrf_exempt # New library
 from rest_framework_jwt.views import (
     obtain_jwt_token,
     refresh_jwt_token,
     verify_jwt_token
 )
+from graphene_django.views import GraphQLView
 from news import views
 
 
@@ -31,7 +33,12 @@ urlpatterns += [
     path("api/news/", include("news.urls")),
     path("api/example/", views.ExampleView.as_view()),
 
+    # drf-jwt
     path('api/token-auth/', obtain_jwt_token),
     path('api/token-refresh/', refresh_jwt_token),
     path('api/token-verify/', verify_jwt_token),
+
+    # graphene-django
+    # path('graphql/', csrf_exempt(GraphQLView.as_view(graphiql=True))),
+    path('graphql/', csrf_exempt(GraphQLView.as_view(graphiql=True))),
 ]
