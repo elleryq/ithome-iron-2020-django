@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-
+import os
 from pathlib import Path
 import environ
 import datetime
@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'rest_framework',
     'graphene_django',
+    'debug_toolbar',
     'news',
 ]
 
@@ -71,13 +72,17 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+if DEBUG:
+    MIDDLEWARE.insert(0, 'debug_toolbar.middleware.DebugToolbarMiddleware')
 
 ROOT_URLCONF = 'django_ithome_ironman.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -95,14 +100,6 @@ WSGI_APPLICATION = 'django_ithome_ironman.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -160,6 +157,10 @@ JWT_AUTH = {
     # 'JWT_AUTH_HEADER_PREFIX': 'JWT',
 }
 
+# Graphene
 GRAPHENE = {
     'SCHEMA': 'news.schema.schema',
 }
+
+# django-debug-toolbar
+INTERNAL_IPS=('127.0.0.1',)
