@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     'graphene_django',
     'debug_toolbar',
     'news',
+    'foodbear',
 ]
 
 MIDDLEWARE = [
