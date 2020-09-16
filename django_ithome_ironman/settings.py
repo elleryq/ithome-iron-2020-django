@@ -60,8 +60,10 @@ INSTALLED_APPS = [
     'rest_framework',
     'graphene_django',
     'debug_toolbar',
+    'mptt',
     'news',
     'foodbear',
+    'treemenu',
 ]
 
 MIDDLEWARE = [

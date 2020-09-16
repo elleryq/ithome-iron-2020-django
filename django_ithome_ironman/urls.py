@@ -25,6 +25,7 @@ from rest_framework_jwt.views import (
 )
 from graphene_django.views import GraphQLView
 from news import views
+from treemenu.views import TreeView
 
 
 urlpatterns = [
@@ -43,6 +44,9 @@ urlpatterns += [
     # graphene-django
     # path('graphql/', csrf_exempt(GraphQLView.as_view(graphiql=True))),
     path('graphql/', csrf_exempt(GraphQLView.as_view(graphiql=True))),
+
+    # treeview
+    path('tree/', TreeView.as_view()),
 
     path('', TemplateView.as_view(template_name='home.html')),
 ]
