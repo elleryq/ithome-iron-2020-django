@@ -1,0 +1,14 @@
+{% load mptt_tags %}
+<h1>PDF Demo</h1>
+<ul>
+    {% recursetree rootmenu %}
+        <li>
+            {{ node.name }}
+            {% if not node.is_leaf_node %}
+                <ul class="children">
+                    {{ children }}
+                </ul>
+            {% endif %}
+        </li>
+    {% endrecursetree %}
+</ul>

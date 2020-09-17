@@ -25,7 +25,7 @@ from rest_framework_jwt.views import (
 )
 from graphene_django.views import GraphQLView
 from news import views
-from treemenu.views import TreeView
+from treemenu.views import TreeView, TreePDFView
 
 
 urlpatterns = [
@@ -47,6 +47,7 @@ urlpatterns += [
 
     # treeview
     path('tree/', TreeView.as_view()),
+    path('tree.pdf/', TreePDFView.as_view()),
 
     path('', TemplateView.as_view(template_name='home.html')),
 ]
