@@ -142,3 +142,4 @@ dmypy.json
 
 poetry.lock
 env
+staticfiles/
