@@ -42,7 +42,6 @@ urlpatterns += [
     path('api/token-verify/', verify_jwt_token),
 
     # graphene-django
-    # path('graphql/', csrf_exempt(GraphQLView.as_view(graphiql=True))),
     path('graphql/', csrf_exempt(GraphQLView.as_view(graphiql=True))),
 
     # treeview
