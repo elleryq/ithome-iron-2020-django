@@ -48,6 +48,8 @@ urlpatterns += [
     path('tree/', TreeView.as_view()),
     path('tree.pdf/', TreePDFView.as_view()),
 
+    path('accounts/', include('allauth.urls')), # new
+
     path('', TemplateView.as_view(template_name='home.html')),
 ]
 
