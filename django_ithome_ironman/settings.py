@@ -235,3 +235,21 @@ SITE_ID = 1
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 LOGIN_REDIRECT_URL = 'home'
+
+# celery
+REDIS_HOST = env('REDIS_HOST', default='localhost')
+REDIS_PORT = env('REDIS_PORT', default=6379)
+RABBITMQ_HOST = env('RABBITMQ_HOST', default='localhost')
+CELERY_RESULT_BACKEND = 'redis://{redis_host}:{redis_port}/1'.format(
+    redis_host=REDIS_HOST,
+    redis_port=REDIS_PORT)
+CELERY_BROKER_URL = 'amqp://guest@{rabbitmq_host}//'.format(
+    rabbitmq_host=RABBITMQ_HOST)
+CELERY_ENABLE_UTC = True
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+
+# When using librabbitmq, must use PROTOCOL 1
+# https://stackoverflow.com/questions/42081061/celery-rabbitmqwarning-mainprocess-received-and-deleted-unknown-message-wron/42561772
+CELERY_TASK_PROTOCOL = 1

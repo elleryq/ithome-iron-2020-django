@@ -25,6 +25,8 @@ pytest-sugar = "^0.9.4"
 pytest-django = "^3.10.0"
 graphene = "^2.1.8"
 django-allauth = "^0.42.0"
+celery = "^4.4.7"
+redis = "^3.5.3"
 
 [tool.poetry.dev-dependencies]
 
