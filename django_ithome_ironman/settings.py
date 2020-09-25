@@ -13,6 +13,7 @@ import os
 from pathlib import Path
 import environ
 import datetime
+from multiprocessing import set_start_method
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -68,6 +69,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.github',
+    'django_q',
 
     # 
     'foodbear',
@@ -253,3 +255,18 @@ CELERY_RESULT_SERIALIZER = 'json'
 # When using librabbitmq, must use PROTOCOL 1
 # https://stackoverflow.com/questions/42081061/celery-rabbitmqwarning-mainprocess-received-and-deleted-unknown-message-wron/42561772
 CELERY_TASK_PROTOCOL = 1
+
+# django-q
+Q_CLUSTER = {
+    'name': 'dhango_ithome_ironman',
+    'workers': 1,
+    'recycle': 500,
+    'timeout': 60,
+    'compress': True,
+    'save_limit': 250,
+    'queue_limit': 500,
+    'cpu_affinity': 1,
+    'label': 'Django Q',
+    'orm': 'default',
+}
+set_start_method('fork')
