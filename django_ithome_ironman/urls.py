@@ -51,6 +51,7 @@ urlpatterns += [
     path('accounts/', include('allauth.urls')), # new
 
     path('', TemplateView.as_view(template_name='home.html')),
+    path('grappelli/', include('grappelli.urls')),
 ]
 
 if settings.DEBUG:
